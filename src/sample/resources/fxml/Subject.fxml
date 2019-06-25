@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.OpenSemesterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.OpenSubjectController">
     <children>
         <MenuBar prefHeight="29.0" prefWidth="600.0" styleClass="menuBar">
             <menus>
@@ -20,11 +20,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#deleteSemester" styleClass="menuItem" text="Delete Semester" />
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="Subject">
-              <items>
-                  <MenuItem mnemonicParsing="false" onAction="#newSubject" styleClass="menuItem" text="Add Subject" />
-              </items>
-            </Menu>
+                <Menu mnemonicParsing="false" text="Subject">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#newSubject" styleClass="menuItem" text="Add Subject" />
+                    </items>
+                </Menu>
                 <Menu mnemonicParsing="false" text="About">
                     <items>
                         <MenuItem mnemonicParsing="false" text="About" />
@@ -34,7 +34,7 @@
         </MenuBar>
         <ScrollPane fx:id="scrollPane" layoutX="47.0" layoutY="66.0" prefHeight="269.0" prefWidth="506.0">
             <content>
-                <GridPane fx:id="gridPaneSubject" prefHeight="271.0" prefWidth="533.0">
+                <GridPane fx:id="gridPaneGrade" prefHeight="271.0" prefWidth="533.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,6 +46,6 @@
                     </rowConstraints>
                 </GridPane>
             </content></ScrollPane>
-        <Label fx:id="labelSemester" layoutX="47.0" layoutY="42.0" prefHeight="17.0" prefWidth="506.0" text="Semester" />
+        <Label fx:id="labelSubject" layoutX="47.0" layoutY="42.0" prefHeight="17.0" prefWidth="506.0" text="Subject" />
     </children>
 </AnchorPane>
