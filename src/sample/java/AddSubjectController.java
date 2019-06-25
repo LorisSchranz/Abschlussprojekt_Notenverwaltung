@@ -8,7 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -16,12 +18,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AddSemesterController implements Initializable {
-    public TextField Semester;
-    public TextField School;
+public class AddSubjectController implements Initializable {
+    public TextField Subject;
     public Label ErrorLabel;
     private GridPane gridPane;
-    private List<Semester> myList = FXCollections.observableArrayList();
+    private List<Subject> myList = FXCollections.observableArrayList();
 
     private int counter = 0;
 
@@ -33,13 +34,13 @@ public class AddSemesterController implements Initializable {
         myList = list;
     }
 
-    public void confirmAddSemester(ActionEvent event) {
-        if (!Semester.getText().isEmpty() && !School.getText().isEmpty()) {
-            String ID = (Semester.getText() + "_" + School.getText()).trim();
+    public void confirmAddSubject(ActionEvent event) {
+        if (!Subject.getText().isEmpty()) {
+            String name = (Subject.getText()).trim();
             Boolean canSave = true;
             for(int i = 0; i<myList.size(); i++){
                 try {
-                    if(ID.equals(myList.get(i).getId())){
+                    if(name.equals(myList.get(i).getName())){
                         canSave = false;
                     }
                 } catch (Exception e){
@@ -47,38 +48,38 @@ public class AddSemesterController implements Initializable {
                 }
             }
             if(canSave) {
-                Button button = new Button(Semester.getText() + ". " + School.getText() + " Semester");
-                button.setOnAction(e -> openSemester());
+                Button button = new Button(Subject.getText());
+                button.setOnAction(e -> openSubject());
                 if ((counter % 2) == 0) {
                     gridPane.add(button, 0, gridPane.getChildren().size());
                 } else {
                     gridPane.add(button, 1, gridPane.getChildren().size() - 1);
                 }
                 counter++;
-                Semester semester = new Semester();
-                semester.setId(ID);
-                myList.add(semester);
+                Subject subject = new Subject();
+                subject.setName(name);
+                myList.add(subject);
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             } else {
-                ErrorLabel.setText("Dieses Semester gibt es schon");
+                ErrorLabel.setText("Dieses Fach gibt es schon");
             }
         }
     }
 
-    private EventHandler<ActionEvent> openSemester() {
+    private EventHandler<ActionEvent> openSubject() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Semester.fxml"));
-            Parent openSemester = fxmlLoader.load();
-            OpenSemesterController semesterController = fxmlLoader.getController();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Subject.fxml"));
+            Parent openSubject = fxmlLoader.load();
+            OpenSubjectController subjectController = fxmlLoader.getController();
             for (int i = 0; i<myList.size(); i++){
-                if(myList.get(i).getId().equals(Semester.getText() + "_" + School.getText())){
-                    semesterController.setTitle(myList.get(i).getId());
-                    semesterController.setSemester(myList.get(i));
+                if(myList.get(i).getName().equals(Subject.getText())){
+                    subjectController.setTitle(myList.get(i).getName());
+                    subjectController.setSubject(myList.get(i));
                 }
             }
-            Scene scene1 = new Scene(openSemester, 600, 400);
+            Scene scene1 = new Scene(openSubject, 600, 400);
             Stage addSubjectStage = new Stage();
-            addSubjectStage.setTitle("Open Semester");
+            addSubjectStage.setTitle("Open Subject");
             addSubjectStage.setResizable(false);
             addSubjectStage.setScene(scene1);
             addSubjectStage.show();
@@ -94,10 +95,8 @@ public class AddSemesterController implements Initializable {
     }
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
 }

@@ -23,7 +23,7 @@ public class Controller implements Initializable {
     @FXML
     public ScrollPane scrollPane = new ScrollPane();
 
-    private List<Semester> subjects = new ArrayList<>();
+    private List<Semester> semesters = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,14 +36,14 @@ public class Controller implements Initializable {
     }
 
 
-    // Add subject
+    // Add semester
     public void newSemester() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/AddSemester.fxml"));
             Parent newSemester = fxmlLoader.load();
             AddSemesterController semesterController = fxmlLoader.getController();
             semesterController.setGridpane(gridPaneSemester);
-            semesterController.setList(subjects);
+            semesterController.setList(semesters);
             Scene scene1 = new Scene(newSemester, 500, 200);
             Stage addSubjectStage = new Stage();
             addSubjectStage.setTitle("New Semester");
