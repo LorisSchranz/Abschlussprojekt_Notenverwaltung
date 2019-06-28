@@ -1,14 +1,18 @@
 package sample.java;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.java.model.Semester;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,7 +27,11 @@ public class Controller implements Initializable {
     @FXML
     public ScrollPane scrollPane = new ScrollPane();
 
-    private List<Semester> semesters = new ArrayList<>();
+
+    private int counter = 0;
+
+    List<Semester> semesters = new ArrayList<>();
+    public List<Semester> getSemester() { return semesters; }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,16 +50,48 @@ public class Controller implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/AddSemester.fxml"));
             Parent newSemester = fxmlLoader.load();
             AddSemesterController semesterController = fxmlLoader.getController();
-            semesterController.setGridpane(gridPaneSemester);
-            semesterController.setList(semesters);
             Scene scene1 = new Scene(newSemester, 500, 200);
             Stage addSubjectStage = new Stage();
             addSubjectStage.setTitle("New Semester");
             addSubjectStage.setResizable(false);
             addSubjectStage.setScene(scene1);
+            semesterController.initialize(Controller.this);
             addSubjectStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    void showSemester(final Semester semester) {
+        semesters.add(semester);
+        Button button = new Button();
+        button.setText(semester.getId().substring(0,semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_")+1));
+        //open subject overview
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Semester.fxml"));
+                    Parent addSemester = fxmlLoader.load();
+                    OpenSemesterController openSemesterController = fxmlLoader.getController();
+                    openSemesterController.initialize(Controller.this, semester);
+                    Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
+                    Stage subjectOverviewStage = new Stage();
+                    subjectOverviewStage.setTitle(semester.getId().substring(0,semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_")+1));
+                    subjectOverviewStage.setResizable(true);
+                    subjectOverviewStage.setScene(subjectOverviewScene);
+                    subjectOverviewStage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        if ((counter % 2) == 0) {
+            gridPaneSemester.add(button, 0, gridPaneSemester.getChildren().size());
+        } else {
+            gridPaneSemester.add(button, 1, gridPaneSemester.getChildren().size() - 1);
+        }
+        counter++;
+
     }
 }

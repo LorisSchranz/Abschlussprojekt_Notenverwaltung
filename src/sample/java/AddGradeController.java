@@ -5,25 +5,24 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import sample.java.model.Subject;
 
-public class AddSubjectController {
-    private OpenSemesterController parentController;
+public class AddGradeController {
+    private OpenSubjectController parentController;
     public TextField Subject;
     public Button Save;
     private Boolean canSave = true;
 
-    void initialize(OpenSemesterController parentController) {
+    void initialize(OpenSubjectController parentController) {
         this.parentController = parentController;
     }
-    
+
     public void confirmAddSubject(ActionEvent event) {
-        System.out.println(parentController.getSubject());
-        if (!parentController.getSubject().isEmpty()) {
+        System.out.println(parentController.getGrades());
+        if (!parentController.getGrades().isEmpty()) {
             canSave = true;
-            for (Subject subject : parentController.getSubject()) {
-                if (subject.getName().equals(Subject.getText().trim())) {
+            for (sample.java.model.Grade grade : parentController.getGrades()) {
+                if (grade.getTitle().equals(Subject.getText().trim())) {
                     canSave = false;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
