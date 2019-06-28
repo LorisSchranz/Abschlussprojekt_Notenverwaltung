@@ -48,16 +48,17 @@ public class OpenSubjectController implements Initializable {
     public void initialize(OpenSemesterController parentController, Subject subject) {
         this.parentController = parentController;
         this.subject = subject;
+        this.grades = subject.getGrades();
 
         for(Grade grade : subject.getGrades()){
             Button button = new Button();
-            button.setText(subject.getName());
+            button.setText(grade.getTitle());
             //open subject overview
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Subject.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Grade.fxml"));
                         Parent addSemester = fxmlLoader.load();
                         OpenGradeController openGradeController = fxmlLoader.getController();
                         openGradeController.initialize(OpenSubjectController.this, grade);
@@ -85,10 +86,10 @@ public class OpenSubjectController implements Initializable {
     // Add grade
     public void newGrade() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/AddSubject.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/AddGrade.fxml"));
             Parent newSubject = fxmlLoader.load();
             AddGradeController addGradeController = fxmlLoader.getController();
-            Scene scene1 = new Scene(newSubject, 500, 200);
+            Scene scene1 = new Scene(newSubject, 500, 400);
             Stage addSubjectStage = new Stage();
             addSubjectStage.setTitle("New Subject");
             addSubjectStage.setResizable(false);
@@ -103,13 +104,13 @@ public class OpenSubjectController implements Initializable {
     void showGrades(final Grade grade) {
         grades.add(grade);
         Button button = new Button();
-        button.setText(subject.getName());
+        button.setText(grade.getTitle());
         //open subject overview
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Subject.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Grade.fxml"));
                     Parent addSemester = fxmlLoader.load();
                     OpenGradeController openGradeController = fxmlLoader.getController();
                     openGradeController.initialize(OpenSubjectController.this, grade);

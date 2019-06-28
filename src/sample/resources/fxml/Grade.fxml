@@ -5,17 +5,18 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.OpenSubjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.OpenGradeController">
     <children>
         <MenuBar prefHeight="29.0" prefWidth="600.0" styleClass="menuBar">
             <menus>
                 <Menu mnemonicParsing="false" text="Grade">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#newGrade" styleClass="menuItem" text="Edit Grade" />
-                  <MenuItem mnemonicParsing="false" onAction="#newGrade" styleClass="menuItem" text="Delete Grade" />
+                        <MenuItem mnemonicParsing="false" onAction="#editGrade" styleClass="menuItem" text="Edit Grade" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteGrade" styleClass="menuItem" text="Delete Grade" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="About">
@@ -32,6 +33,6 @@
       <Label layoutX="47.0" layoutY="154.0" prefHeight="17.0" prefWidth="50.0" text="Weight" />
       <TextField fx:id="textFieldTitle" editable="false" layoutX="97.0" layoutY="69.0" />
       <TextField fx:id="textFieldMark" editable="false" layoutX="97.0" layoutY="109.0" />
-      <TextField fx:id="textFieldWeight" editable="false" layoutX="97.0" layoutY="149.0" />
+      <Spinner fx:id="Spinner" amountToStepBy="0.00" layoutX="97.0" layoutY="150.0" prefHeight="25.0" prefWidth="149.0" />
     </children>
 </AnchorPane>

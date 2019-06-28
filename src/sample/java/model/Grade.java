@@ -5,11 +5,6 @@ public class Grade {
     private String title;
     private double mark;
     private double weight;
-    public Grade(String title, double mark, double weight) {
-        this.title = title;
-        this.mark = mark;
-        this.weight = weight;
-    }
 
     public String getTitle() {
         return title;

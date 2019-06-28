@@ -25,8 +25,8 @@ public class AddSemesterController {
     }
 
     public void confirmAddSemester(ActionEvent event) {
-                ID = (Semester.getText() + "_" + School.getText()).trim();
-                SubjectList = new ArrayList<>();
+        ID = (Semester.getText() + "_" + School.getText()).trim();
+        SubjectList = new ArrayList<>();
         if (!parentController.getSemester().isEmpty()) {
             canSave = true;
             for (Semester semester : parentController.getSemester()) {
@@ -40,20 +40,18 @@ public class AddSemesterController {
                     alert.showAndWait();
                 }
             }
-            if(canSave){
+            if (canSave) {
                 Semester newSemester = new Semester();
                 newSemester.setId(ID);
                 newSemester.setSubjects(SubjectList);
                 parentController.showSemester(newSemester);
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
-            }
-
-        else {
-                if (!Semester.getText().trim().isEmpty() && !School.getText().trim().isEmpty()) {
+        } else {
+            if (!Semester.getText().trim().isEmpty() && !School.getText().trim().isEmpty()) {
                 Semester newSemester = new Semester();
-                    newSemester.setId(ID);
-                    newSemester.setSubjects(SubjectList);
+                newSemester.setId(ID);
+                newSemester.setSubjects(SubjectList);
                 parentController.showSemester(newSemester);
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
