@@ -14,17 +14,17 @@
     <children>
         <MenuBar prefHeight="29.0" prefWidth="600.0" styleClass="menuBar">
             <menus>
-                <Menu mnemonicParsing="false" text="Semester">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#editSemester" styleClass="menuItem" text="Edit Semester" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteSemester" styleClass="menuItem" text="Delete Semester" />
-                    </items>
-                </Menu>
                 <Menu mnemonicParsing="false" text="Subject">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#newSubject" styleClass="menuItem" text="Add Subject" />
+                        <MenuItem mnemonicParsing="false" onAction="#editSubject" styleClass="menuItem" text="Edit Subject" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteSubject" styleClass="menuItem" text="Delete Subject" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="Grade">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#newGrade" styleClass="menuItem" text="Add Grade" />
+               </items>
+            </Menu>
                 <Menu mnemonicParsing="false" text="About">
                     <items>
                         <MenuItem mnemonicParsing="false" text="About" />

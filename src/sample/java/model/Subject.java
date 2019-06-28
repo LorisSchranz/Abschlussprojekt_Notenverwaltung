@@ -1,11 +1,11 @@
-package sample.java;
+package sample.java.model;
 
 
 import java.util.List;
 
 public class Subject {
     private String name;
-    private List<Grade> grade;
+    private List<Grade> grades;
 
     public String getName() {
         return name;
@@ -15,11 +15,11 @@ public class Subject {
         this.name = name;
     }
 
-    public List<Grade> getGrade() {
-        return grade;
+    public List<Grade> getGrades() {
+        return grades;
     }
 
-    public void setGrade(List<Grade> grade) {
-        this.grade = grade;
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
     }
 }

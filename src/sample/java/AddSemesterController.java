@@ -1,103 +1,65 @@
 package sample.java;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import sample.java.model.Semester;
+import sample.java.model.Subject;
 
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class AddSemesterController implements Initializable {
+public class AddSemesterController {
     public TextField Semester;
     public TextField School;
-    public Label ErrorLabel;
-    private GridPane gridPane;
-    private List<Semester> myList = FXCollections.observableArrayList();
 
-    private int counter = 0;
+    private boolean canSave = true;
+    private String ID;
+    private List<Subject> SubjectList;
 
-    void setGridpane(GridPane gridPane) {
-        this.gridPane = gridPane;
-    }
+    private Controller parentController;
 
-    void setList(List list) {
-        myList = list;
+    void initialize(Controller parentController) {
+        this.parentController = parentController;
     }
 
     public void confirmAddSemester(ActionEvent event) {
-        if (!Semester.getText().isEmpty() && !School.getText().isEmpty()) {
-            String ID = (Semester.getText() + "_" + School.getText()).trim();
-            Boolean canSave = true;
-            for(int i = 0; i<myList.size(); i++){
-                try {
-                    if(ID.equals(myList.get(i).getId())){
-                        canSave = false;
-                    }
-                } catch (Exception e){
-                    e.printStackTrace();
+        ID = (Semester.getText() + "_" + School.getText()).trim();
+        SubjectList = new ArrayList<>();
+        if (!parentController.getSemester().isEmpty()) {
+            canSave = true;
+            for (Semester semester : parentController.getSemester()) {
+                if (semester.getId().equals(ID)) {
+                    canSave = false;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Duplicate Subject name");
+                    alert.setContentText("There is already a subject called '" + Semester.getText() + ". " + School.getText() + " Semester" + "'");
+
+                    alert.showAndWait();
                 }
             }
-            if(canSave) {
-                Button button = new Button(Semester.getText() + ". " + School.getText() + " Semester");
-                button.setOnAction(e -> openSemester());
-                if ((counter % 2) == 0) {
-                    gridPane.add(button, 0, gridPane.getChildren().size());
-                } else {
-                    gridPane.add(button, 1, gridPane.getChildren().size() - 1);
-                }
-                counter++;
-                Semester semester = new Semester();
-                semester.setId(ID);
-                myList.add(semester);
+            if (canSave) {
+                Semester newSemester = new Semester();
+                newSemester.setId(ID);
+                newSemester.setSubjects(SubjectList);
+                parentController.showSemester(newSemester);
                 ((Node) (event.getSource())).getScene().getWindow().hide();
-            } else {
-                ErrorLabel.setText("Dieses Semester gibt es schon");
+            }
+        } else {
+            if (!Semester.getText().trim().isEmpty() && !School.getText().trim().isEmpty()) {
+                Semester newSemester = new Semester();
+                newSemester.setId(ID);
+                newSemester.setSubjects(SubjectList);
+                parentController.showSemester(newSemester);
+                ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
-    }
-
-    private EventHandler<ActionEvent> openSemester() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Semester.fxml"));
-            Parent openSemester = fxmlLoader.load();
-            OpenSemesterController semesterController = fxmlLoader.getController();
-            for (int i = 0; i<myList.size(); i++){
-                if(myList.get(i).getId().equals(Semester.getText() + "_" + School.getText())){
-                    semesterController.setTitle(myList.get(i).getId());
-                    semesterController.setSemester(myList.get(i));
-                }
-            }
-            Scene scene1 = new Scene(openSemester, 600, 400);
-            Stage addSubjectStage = new Stage();
-            addSubjectStage.setTitle("Open Semester");
-            addSubjectStage.setResizable(false);
-            addSubjectStage.setScene(scene1);
-            addSubjectStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     public void discard(ActionEvent event) {
         ((Node) (event.getSource())).getScene().getWindow().hide();
-    }
-
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
     }
 
 }

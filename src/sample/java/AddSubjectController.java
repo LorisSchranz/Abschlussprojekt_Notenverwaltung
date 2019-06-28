@@ -1,102 +1,64 @@
 package sample.java;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import sample.java.model.Grade;
+import sample.java.model.Subject;
 
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class AddSubjectController implements Initializable {
+public class AddSubjectController {
+    private OpenSemesterController parentController;
     public TextField Subject;
-    public Label ErrorLabel;
-    private GridPane gridPane;
-    private List<Subject> myList = FXCollections.observableArrayList();
+    public Button Save;
+    private Boolean canSave = true;
 
-    private int counter = 0;
+    private List<Grade> GradeList;
 
-    void setGridpane(GridPane gridPane) {
-        this.gridPane = gridPane;
+    void initialize(OpenSemesterController parentController) {
+        this.parentController = parentController;
     }
-
-    void setList(List list) {
-        myList = list;
-    }
-
+    
     public void confirmAddSubject(ActionEvent event) {
-        if (!Subject.getText().isEmpty()) {
-            String name = (Subject.getText()).trim();
-            Boolean canSave = true;
-            for(int i = 0; i<myList.size(); i++){
-                try {
-                    if(name.equals(myList.get(i).getName())){
-                        canSave = false;
-                    }
-                } catch (Exception e){
-                    e.printStackTrace();
+        if (!parentController.getSubject().isEmpty()) {
+            canSave = true;
+            for (Subject subject : parentController.getSubject()) {
+                if (subject.getName().equals(Subject.getText().trim())) {
+                    canSave = false;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Duplicate Subject name");
+                    alert.setContentText("There is already a subject called '" + Subject.getText() + "'");
+
+                    alert.showAndWait();
                 }
             }
-            if(canSave) {
-                Button button = new Button(Subject.getText());
-                button.setOnAction(e -> openSubject());
-                if ((counter % 2) == 0) {
-                    gridPane.add(button, 0, gridPane.getChildren().size());
-                } else {
-                    gridPane.add(button, 1, gridPane.getChildren().size() - 1);
-                }
-                counter++;
-                Subject subject = new Subject();
-                subject.setName(name);
-                myList.add(subject);
+            if(canSave){
+                GradeList = new ArrayList<>();
+                Subject newSubject = new Subject();
+                newSubject.setName(Subject.getText());
+                newSubject.setGrades(GradeList);
+                parentController.showSubject(newSubject);
                 ((Node) (event.getSource())).getScene().getWindow().hide();
-            } else {
-                ErrorLabel.setText("Dieses Fach gibt es schon");
             }
         }
-    }
-
-    private EventHandler<ActionEvent> openSubject() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Subject.fxml"));
-            Parent openSubject = fxmlLoader.load();
-            OpenSubjectController subjectController = fxmlLoader.getController();
-            for (int i = 0; i<myList.size(); i++){
-                if(myList.get(i).getName().equals(Subject.getText())){
-                    subjectController.setTitle(myList.get(i).getName());
-                    subjectController.setSubject(myList.get(i));
-                }
+        else {
+            if (!Subject.getText().isEmpty()) {
+                GradeList = new ArrayList<>();
+                Subject newSubject = new Subject();
+                newSubject.setName(Subject.getText());
+                newSubject.setGrades(GradeList);
+                parentController.showSubject(newSubject);
+                ((Node) (event.getSource())).getScene().getWindow().hide();
             }
-            Scene scene1 = new Scene(openSubject, 600, 400);
-            Stage addSubjectStage = new Stage();
-            addSubjectStage.setTitle("Open Subject");
-            addSubjectStage.setResizable(false);
-            addSubjectStage.setScene(scene1);
-            addSubjectStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-        return null;
     }
 
     public void discard(ActionEvent event) {
         ((Node) (event.getSource())).getScene().getWindow().hide();
-    }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
     }
 }
