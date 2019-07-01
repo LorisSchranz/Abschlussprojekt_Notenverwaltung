@@ -26,6 +26,7 @@ public class Controller implements Initializable {
 
     @FXML
     public ScrollPane scrollPane;
+    public Stage subjectOverviewStage = new Stage();
 
 
     private int counter = 0;
@@ -71,12 +72,12 @@ public class Controller implements Initializable {
         if (method.equals("add")) {
             semesters.add(semester);
         } else if (method.equals("delete")) {
-
+            System.out.println(semester);
+            semesters.remove(semester);
         }
-
-        System.out.println(gridPaneSemester.getChildren().size());
-        gridPaneSemester.getChildren().removeAll();
-        System.out.println(gridPaneSemester.getChildren().size());
+        System.out.println(gridPaneSemester );
+        gridPaneSemester.getChildren().clear();
+        counter = 0;
         System.out.println(semesters);
         for (int i = 0; i < semesters.size(); i++) {
             Button button = new Button();
@@ -105,10 +106,11 @@ public class Controller implements Initializable {
             if ((counter % 2) == 0) {
                 gridPaneSemester.add(button, 0, gridPaneSemester.getChildren().size());
             } else {
-                gridPaneSemester.add(button, 1, gridPaneSemester.getChildren().size());
+                gridPaneSemester.add(button, 1, gridPaneSemester.getChildren().size() -1 );
             }
-            counter++;
 
+            counter++;
+            System.out.println(semesters);
         }
     }
 }

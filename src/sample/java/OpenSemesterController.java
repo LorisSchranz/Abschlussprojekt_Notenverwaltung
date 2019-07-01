@@ -29,7 +29,9 @@ public class OpenSemesterController extends Controller implements Initializable 
     public GridPane gridPaneSubject;
     @FXML
     public Label labelSemester;
-
+    @FXML
+    public Button delete;
+    public List<Semester> semesters;
     @FXML
     public ScrollPane scrollPane = new ScrollPane();
 
@@ -37,7 +39,10 @@ public class OpenSemesterController extends Controller implements Initializable 
     private Controller controller = new Controller();
 
     List<Subject> subjects;
-    public List<Subject> getSubject() { return subjects; }
+
+    public List<Subject> getSubject() {
+        return subjects;
+    }
 
 
     @Override
@@ -55,7 +60,7 @@ public class OpenSemesterController extends Controller implements Initializable 
         this.subjects = semester.getSubjects();
         this.semesters = controller.getSemester();
 
-        for(Subject subject: semester.getSubjects()){
+        for (Subject subject : semester.getSubjects()) {
             Button button = new Button();
             button.setText(subject.getName());
             //open subject overview
@@ -68,7 +73,6 @@ public class OpenSemesterController extends Controller implements Initializable 
                         OpenSubjectController openSubjectController = fxmlLoader.getController();
                         openSubjectController.initialize(OpenSemesterController.this, subject);
                         Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
-                        Stage subjectOverviewStage = new Stage();
                         subjectOverviewStage.setTitle(subject.getName());
                         subjectOverviewStage.setResizable(true);
                         subjectOverviewStage.setScene(subjectOverviewScene);
@@ -86,7 +90,7 @@ public class OpenSemesterController extends Controller implements Initializable 
             counter++;
         }
 
-        labelSemester.setText(semester.getId().substring(0,semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_")+1));
+        labelSemester.setText(semester.getId().substring(0, semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_") + 1));
     }
 
     public void editSemester(ActionEvent event) {
@@ -94,11 +98,16 @@ public class OpenSemesterController extends Controller implements Initializable 
     }
 
     public void deleteSemester(ActionEvent event) {
+        semesters = parentController.getSemester();
+        System.out.println(semesters);
         semester.getId();
-        for (int i = 0; i<semesters.size(); i++){
+        for (int i = 0; i < semesters.size(); i++) {
             if (semesters.get(i).getId().equals(semester.getId()))
                 semesters.remove(i);
-                controller.showSemester(null, "delete");
+            subjectOverviewStage.close();
+
+            System.out.println(semester);
+            controller.showSemester(semester, "delete");
         }
     }
 
