@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class OpenSemesterController implements Initializable {
+public class OpenSemesterController extends Controller implements Initializable {
     private Controller parentController;
     private Semester semester;
 
@@ -34,6 +34,7 @@ public class OpenSemesterController implements Initializable {
     public ScrollPane scrollPane = new ScrollPane();
 
     private int counter = 0;
+    private Controller controller = new Controller();
 
     List<Subject> subjects;
     public List<Subject> getSubject() { return subjects; }
@@ -52,6 +53,7 @@ public class OpenSemesterController implements Initializable {
         this.parentController = parentController;
         this.semester = semester;
         this.subjects = semester.getSubjects();
+        this.semesters = controller.getSemester();
 
         for(Subject subject: semester.getSubjects()){
             Button button = new Button();
@@ -92,6 +94,12 @@ public class OpenSemesterController implements Initializable {
     }
 
     public void deleteSemester(ActionEvent event) {
+        semester.getId();
+        for (int i = 0; i<semesters.size(); i++){
+            if (semesters.get(i).getId().equals(semester.getId()))
+                semesters.remove(i);
+                controller.showSemester(null, "delete");
+        }
     }
 
 

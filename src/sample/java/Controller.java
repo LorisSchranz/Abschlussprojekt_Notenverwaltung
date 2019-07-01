@@ -22,19 +22,24 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
-    public GridPane gridPaneSemester = new GridPane();
+    public GridPane gridPaneSemester;
 
     @FXML
-    public ScrollPane scrollPane = new ScrollPane();
+    public ScrollPane scrollPane;
 
 
     private int counter = 0;
 
     List<Semester> semesters = new ArrayList<>();
-    public List<Semester> getSemester() { return semesters; }
+
+    public List<Semester> getSemester() {
+        return semesters;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println(">>>" + gridPaneSemester.getChildren().size());
+
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         gridPaneSemester.setPadding(new Insets(25));
@@ -62,36 +67,48 @@ public class Controller implements Initializable {
         }
     }
 
-    void showSemester(final Semester semester) {
-        semesters.add(semester);
-        Button button = new Button();
-        button.setText(semester.getId().substring(0,semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_")+1));
-        //open subject overview
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Semester.fxml"));
-                    Parent addSemester = fxmlLoader.load();
-                    OpenSemesterController openSemesterController = fxmlLoader.getController();
-                    openSemesterController.initialize(Controller.this, semester);
-                    Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
-                    Stage subjectOverviewStage = new Stage();
-                    subjectOverviewStage.setTitle(semester.getId().substring(0,semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_")+1));
-                    subjectOverviewStage.setResizable(true);
-                    subjectOverviewStage.setScene(subjectOverviewScene);
-                    subjectOverviewStage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        if ((counter % 2) == 0) {
-            gridPaneSemester.add(button, 0, gridPaneSemester.getChildren().size());
-        } else {
-            gridPaneSemester.add(button, 1, gridPaneSemester.getChildren().size() - 1);
-        }
-        counter++;
+    void showSemester(final Semester semester, String method) {
+        if (method.equals("add")) {
+            semesters.add(semester);
+        } else if (method.equals("delete")) {
 
+        }
+
+        System.out.println(gridPaneSemester.getChildren().size());
+        gridPaneSemester.getChildren().removeAll();
+        System.out.println(gridPaneSemester.getChildren().size());
+        System.out.println(semesters);
+        for (int i = 0; i < semesters.size(); i++) {
+            Button button = new Button();
+            button.setText(semesters.get(i).getId().substring(0, semesters.get(i).getId().indexOf("_")) + semesters.get(i).getId().substring(semesters.get(i).getId().indexOf("_") + 1));
+
+            //open subject overview
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Semester.fxml"));
+                        Parent addSemester = fxmlLoader.load();
+                        OpenSemesterController openSemesterController = fxmlLoader.getController();
+                        openSemesterController.initialize(Controller.this, semester);
+                        Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
+                        Stage subjectOverviewStage = new Stage();
+                        subjectOverviewStage.setTitle(semester.getId().substring(0, semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_") + 1));
+                        subjectOverviewStage.setResizable(true);
+                        subjectOverviewStage.setScene(subjectOverviewScene);
+                        subjectOverviewStage.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            if ((counter % 2) == 0) {
+                gridPaneSemester.add(button, 0, gridPaneSemester.getChildren().size());
+            } else {
+                gridPaneSemester.add(button, 1, gridPaneSemester.getChildren().size());
+            }
+            counter++;
+
+        }
     }
 }

@@ -44,7 +44,7 @@ public class AddSemesterController {
                 Semester newSemester = new Semester();
                 newSemester.setId(ID);
                 newSemester.setSubjects(SubjectList);
-                parentController.showSemester(newSemester);
+                parentController.showSemester(newSemester, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         } else {
@@ -52,7 +52,7 @@ public class AddSemesterController {
                 Semester newSemester = new Semester();
                 newSemester.setId(ID);
                 newSemester.setSubjects(SubjectList);
-                parentController.showSemester(newSemester);
+                parentController.showSemester(newSemester, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
