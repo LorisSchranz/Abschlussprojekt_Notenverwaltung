@@ -39,16 +39,12 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(">>>" + gridPaneSemester.getChildren().size());
-
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         gridPaneSemester.setPadding(new Insets(25));
         gridPaneSemester.setHgap(25);
         gridPaneSemester.setVgap(25);
-
     }
-
 
     // Add semester
     public void newSemester() {
@@ -71,19 +67,15 @@ public class Controller implements Initializable {
     void showSemester(final Semester semester, String method) {
         if (method.equals("add")) {
             semesters.add(semester);
-        } else if (method.equals("delete")) {
-            System.out.println(semester);
-            semesters.remove(semester);
         }
-        System.out.println(gridPaneSemester );
         gridPaneSemester.getChildren().clear();
         counter = 0;
-        System.out.println(semesters);
         for (int i = 0; i < semesters.size(); i++) {
+            int index = i;
             Button button = new Button();
-            button.setText(semesters.get(i).getId().substring(0, semesters.get(i).getId().indexOf("_")) + semesters.get(i).getId().substring(semesters.get(i).getId().indexOf("_") + 1));
-
-            //open subject overview
+            String Text = semesters.get(i).getId().substring(0, semesters.get(i).getId().indexOf("_"))  + ". " + semesters.get(i).getId().substring(semesters.get(i).getId().indexOf("_") +1) + " Semester";
+            button.setText(Text);
+//open subject overview
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -91,10 +83,10 @@ public class Controller implements Initializable {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Semester.fxml"));
                         Parent addSemester = fxmlLoader.load();
                         OpenSemesterController openSemesterController = fxmlLoader.getController();
-                        openSemesterController.initialize(Controller.this, semester);
+                        openSemesterController.initialize(Controller.this, semesters.get(index));
                         Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
                         Stage subjectOverviewStage = new Stage();
-                        subjectOverviewStage.setTitle(semester.getId().substring(0, semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_") + 1));
+                        subjectOverviewStage.setTitle(Text);
                         subjectOverviewStage.setResizable(true);
                         subjectOverviewStage.setScene(subjectOverviewScene);
                         subjectOverviewStage.show();
@@ -108,9 +100,7 @@ public class Controller implements Initializable {
             } else {
                 gridPaneSemester.add(button, 1, gridPaneSemester.getChildren().size() -1 );
             }
-
             counter++;
-            System.out.println(semesters);
         }
     }
 }

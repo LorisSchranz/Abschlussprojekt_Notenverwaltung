@@ -32,7 +32,7 @@ public class AddGradeController {
                 newGrade.setTitle(tfTitle.getText());
                 newGrade.setMark(Double.valueOf(tfMark.getText().trim()));
                 newGrade.setWeight(Double.valueOf(Spinner.getValue().toString().trim()));
-                parentController.showGrades(newGrade);
+                parentController.showGrades(newGrade, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         } else {
@@ -43,7 +43,7 @@ public class AddGradeController {
                 newGrade.setTitle(tfTitle.getText());
                 newGrade.setMark(Double.valueOf(tfMark.getText().trim()));
                 newGrade.setWeight(Double.valueOf(Spinner.getEditor().getText().trim()));
-                parentController.showGrades(newGrade);
+                parentController.showGrades(newGrade, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
@@ -97,7 +97,7 @@ public class AddGradeController {
         }
 
         try {
-           finalWeight = Double.parseDouble(Spinner.getEditor().getText().trim());
+            finalWeight = Double.parseDouble(Spinner.getEditor().getText().trim());
         } catch (Exception e) {
             canSave = false;
             finalWeight = 1.00;

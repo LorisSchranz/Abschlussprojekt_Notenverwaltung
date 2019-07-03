@@ -34,7 +34,7 @@ public class AddSemesterController {
                     canSave = false;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
-                    alert.setHeaderText("Duplicate Subject name");
+                    alert.setHeaderText("Duplicate Semester name");
                     alert.setContentText("There is already a subject called '" + Semester.getText() + ". " + School.getText() + " Semester" + "'");
 
                     alert.showAndWait();

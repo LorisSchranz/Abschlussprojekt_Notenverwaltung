@@ -22,7 +22,7 @@ public class AddSubjectController {
     void initialize(OpenSemesterController parentController) {
         this.parentController = parentController;
     }
-    
+
     public void confirmAddSubject(ActionEvent event) {
         if (!parentController.getSubject().isEmpty()) {
             canSave = true;
@@ -42,7 +42,7 @@ public class AddSubjectController {
                 Subject newSubject = new Subject();
                 newSubject.setName(Subject.getText());
                 newSubject.setGrades(GradeList);
-                parentController.showSubject(newSubject);
+                parentController.showSubject(newSubject, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
@@ -52,7 +52,7 @@ public class AddSubjectController {
                 Subject newSubject = new Subject();
                 newSubject.setName(Subject.getText());
                 newSubject.setGrades(GradeList);
-                parentController.showSubject(newSubject);
+                parentController.showSubject(newSubject, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
