@@ -34,7 +34,7 @@ public class AddSemesterController {
                     canSave = false;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
-                    alert.setHeaderText("Duplicate Subject name");
+                    alert.setHeaderText("Duplicate Semester name");
                     alert.setContentText("There is already a subject called '" + Semester.getText() + ". " + School.getText() + " Semester" + "'");
 
                     alert.showAndWait();
@@ -44,7 +44,7 @@ public class AddSemesterController {
                 Semester newSemester = new Semester();
                 newSemester.setId(ID);
                 newSemester.setSubjects(SubjectList);
-                parentController.showSemester(newSemester);
+                parentController.showSemester(newSemester, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         } else {
@@ -52,7 +52,7 @@ public class AddSemesterController {
                 Semester newSemester = new Semester();
                 newSemester.setId(ID);
                 newSemester.setSubjects(SubjectList);
-                parentController.showSemester(newSemester);
+                parentController.showSemester(newSemester, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }

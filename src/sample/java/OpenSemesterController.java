@@ -17,11 +17,10 @@ import sample.java.model.Semester;
 import sample.java.model.Subject;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class OpenSemesterController implements Initializable {
+public class OpenSemesterController extends Controller implements Initializable {
     private Controller parentController;
     private Semester semester;
 
@@ -30,13 +29,17 @@ public class OpenSemesterController implements Initializable {
     @FXML
     public Label labelSemester;
 
+    public List<Semester> semesters;
     @FXML
     public ScrollPane scrollPane = new ScrollPane();
 
     private int counter = 0;
 
     List<Subject> subjects;
-    public List<Subject> getSubject() { return subjects; }
+
+    public List<Subject> getSubject() {
+        return subjects;
+    }
 
 
     @Override
@@ -52,39 +55,11 @@ public class OpenSemesterController implements Initializable {
         this.parentController = parentController;
         this.semester = semester;
         this.subjects = semester.getSubjects();
+        this.semesters = parentController.getSemester();
 
-        for(Subject subject: semester.getSubjects()){
-            Button button = new Button();
-            button.setText(subject.getName());
-            //open subject overview
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Subject.fxml"));
-                        Parent addSemester = fxmlLoader.load();
-                        OpenSubjectController openSubjectController = fxmlLoader.getController();
-                        openSubjectController.initialize(OpenSemesterController.this, subject);
-                        Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
-                        Stage subjectOverviewStage = new Stage();
-                        subjectOverviewStage.setTitle(subject.getName());
-                        subjectOverviewStage.setResizable(true);
-                        subjectOverviewStage.setScene(subjectOverviewScene);
-                        subjectOverviewStage.show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            if ((counter % 2) == 0) {
-                gridPaneSubject.add(button, 0, gridPaneSubject.getChildren().size());
-            } else {
-                gridPaneSubject.add(button, 1, gridPaneSubject.getChildren().size() - 1);
-            }
-            counter++;
-        }
+        showSubject(null,"null");
 
-        labelSemester.setText(semester.getId().substring(0,semester.getId().indexOf("_")) + semester.getId().substring(semester.getId().indexOf("_")+1));
+        labelSemester.setText(semester.getId().substring(0, semester.getId().indexOf("_"))  + ". " + semester.getId().substring(semester.getId().indexOf("_") +1) + " Semester");
     }
 
     public void editSemester(ActionEvent event) {
@@ -92,6 +67,13 @@ public class OpenSemesterController implements Initializable {
     }
 
     public void deleteSemester(ActionEvent event) {
+        for (int i = 0; i < semesters.size(); i++) {
+            if (semesters.get(i).getId().equals(semester.getId())) {
+                semesters.remove(i);
+                parentController.showSemester(semester, "delete");
+                labelSemester.getScene().getWindow().hide();
+            }
+        }
     }
 
 
@@ -113,36 +95,42 @@ public class OpenSemesterController implements Initializable {
         }
     }
 
-    void showSubject(final Subject subject) {
-        subjects.add(subject);
-        Button button = new Button();
-        button.setText(subject.getName());
-        //open subject overview
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Subject.fxml"));
-                    Parent addSemester = fxmlLoader.load();
-                    OpenSubjectController openSubjectController = fxmlLoader.getController();
-                    openSubjectController.initialize(OpenSemesterController.this, subject);
-                    Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
-                    Stage subjectOverviewStage = new Stage();
-                    subjectOverviewStage.setTitle(subject.getName());
-                    subjectOverviewStage.setResizable(true);
-                    subjectOverviewStage.setScene(subjectOverviewScene);
-                    subjectOverviewStage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        if ((counter % 2) == 0) {
-            gridPaneSubject.add(button, 0, gridPaneSubject.getChildren().size());
-        } else {
-            gridPaneSubject.add(button, 1, gridPaneSubject.getChildren().size() - 1);
+    void showSubject(final Subject subject, String method) {
+        if (method.equals("add")) {
+            subjects.add(subject);
         }
-        counter++;
+        gridPaneSubject.getChildren().clear();
+        counter = 0;
+        for (int i = 0; i < subjects.size(); i++) {
+            int index = i;
+            Button button = new Button();
+            button.setText(subjects.get(index).getName());
 
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/Subject.fxml"));
+                        Parent addSemester = fxmlLoader.load();
+                        OpenSubjectController openSubjectController = fxmlLoader.getController();
+                        openSubjectController.initialize(OpenSemesterController.this, subjects.get(index));
+                        Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
+                        Stage subjectOverviewStage = new Stage();
+                        subjectOverviewStage.setTitle(subjects.get(index).getName());
+                        subjectOverviewStage.setResizable(true);
+                        subjectOverviewStage.setScene(subjectOverviewScene);
+                        subjectOverviewStage.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            if ((counter % 2) == 0) {
+                gridPaneSubject.add(button, 0, gridPaneSubject.getChildren().size());
+            } else {
+                gridPaneSubject.add(button, 1, gridPaneSubject.getChildren().size() - 1);
+            }
+            counter++;
+        }
     }
 }
