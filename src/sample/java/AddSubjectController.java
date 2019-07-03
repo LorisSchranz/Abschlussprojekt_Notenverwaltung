@@ -14,13 +14,17 @@ import java.util.List;
 public class AddSubjectController {
     private OpenSemesterController parentController;
     public TextField Subject;
+    public int position = -1;
+
     public Button Save;
     private Boolean canSave = true;
+    private List<Subject> subjects;
 
     private List<Grade> GradeList;
 
     void initialize(OpenSemesterController parentController) {
         this.parentController = parentController;
+        this.subjects = parentController.getSubject();
     }
 
     public void confirmAddSubject(ActionEvent event) {
@@ -37,12 +41,17 @@ public class AddSubjectController {
                     alert.showAndWait();
                 }
             }
-            if(canSave){
+            if(canSave && position == -1){
                 GradeList = new ArrayList<>();
                 Subject newSubject = new Subject();
                 newSubject.setName(Subject.getText());
                 newSubject.setGrades(GradeList);
+                subjects.add(newSubject);
                 parentController.showSubject(newSubject, "add");
+                ((Node) (event.getSource())).getScene().getWindow().hide();
+            } else if(canSave && position != -1){
+                subjects.get(position).setName(Subject.getText());
+                parentController.showSubject(null, "edit");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
@@ -52,6 +61,7 @@ public class AddSubjectController {
                 Subject newSubject = new Subject();
                 newSubject.setName(Subject.getText());
                 newSubject.setGrades(GradeList);
+                subjects.add(newSubject);
                 parentController.showSubject(newSubject, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }

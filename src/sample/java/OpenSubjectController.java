@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class OpenSubjectController extends OpenSemesterController implements Initializable {
     private OpenSemesterController parentController;
     private Subject subject;
-    private int counter = 0;
+    public int counter = 0;
 
     @FXML
     public GridPane gridPaneGrade;
@@ -79,9 +79,6 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
     }
 
     void showGrades(final Grade grade, String method) {
-        if (method.equals("add")) {
-            grades.add(grade);
-        }
         gridPaneGrade.getChildren().clear();
         counter = 0;
         for (int i = 0; i < grades.size(); i++) {
@@ -118,6 +115,27 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
     }
 
     public void editSubject(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/AddSubject.fxml"));
+            Parent editSubject = fxmlLoader.load();
+            AddSubjectController subjectController = fxmlLoader.getController();
+            subjectController.Subject.setText(subject.getName());
+            for (int i = 0; i < subjects.size(); i++) {
+                if (subjects.get(i).getName().equals(subject.getName())) {
+                    subjectController.position = i;
+                }
+            }
+            Scene scene1 = new Scene(editSubject, 500, 200);
+            Stage addSubjectStage = new Stage();
+            addSubjectStage.setTitle("Edit Semester");
+            addSubjectStage.setResizable(false);
+            addSubjectStage.setScene(scene1);
+            subjectController.initialize(parentController);
+            addSubjectStage.show();
+            labelSubject.getScene().getWindow().hide();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteSubject(ActionEvent event) {

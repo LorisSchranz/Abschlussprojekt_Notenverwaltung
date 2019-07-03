@@ -10,18 +10,22 @@ import sample.java.model.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddSemesterController {
+public class AddSemesterController{
     public TextField Semester;
     public TextField School;
+    public int position = -1;
 
     private boolean canSave = true;
     private String ID;
     private List<Subject> SubjectList;
 
+    private List<Semester> semesters;
+
     private Controller parentController;
 
     void initialize(Controller parentController) {
         this.parentController = parentController;
+        this.semesters = parentController.getSemester();
     }
 
     public void confirmAddSemester(ActionEvent event) {
@@ -40,11 +44,16 @@ public class AddSemesterController {
                     alert.showAndWait();
                 }
             }
-            if (canSave) {
+            if (canSave && position == -1) {
                 Semester newSemester = new Semester();
                 newSemester.setId(ID);
                 newSemester.setSubjects(SubjectList);
+                semesters.add(newSemester);
                 parentController.showSemester(newSemester, "add");
+                ((Node) (event.getSource())).getScene().getWindow().hide();
+            } else if(canSave && position != -1){
+                semesters.get(position).setId(ID);
+                parentController.showSemester(null, "edit");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         } else {
@@ -52,6 +61,7 @@ public class AddSemesterController {
                 Semester newSemester = new Semester();
                 newSemester.setId(ID);
                 newSemester.setSubjects(SubjectList);
+                semesters.add(newSemester);
                 parentController.showSemester(newSemester, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }

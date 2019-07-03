@@ -26,8 +26,6 @@ public class Controller implements Initializable {
 
     @FXML
     public ScrollPane scrollPane;
-    public Stage subjectOverviewStage = new Stage();
-
 
     private int counter = 0;
 
@@ -65,9 +63,6 @@ public class Controller implements Initializable {
     }
 
     void showSemester(final Semester semester, String method) {
-        if (method.equals("add")) {
-            semesters.add(semester);
-        }
         gridPaneSemester.getChildren().clear();
         counter = 0;
         for (int i = 0; i < semesters.size(); i++) {
@@ -75,7 +70,7 @@ public class Controller implements Initializable {
             Button button = new Button();
             String Text = semesters.get(i).getId().substring(0, semesters.get(i).getId().indexOf("_"))  + ". " + semesters.get(i).getId().substring(semesters.get(i).getId().indexOf("_") +1) + " Semester";
             button.setText(Text);
-//open subject overview
+
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
