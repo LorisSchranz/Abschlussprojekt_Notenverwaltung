@@ -63,7 +63,28 @@ public class OpenSemesterController extends Controller implements Initializable 
     }
 
     public void editSemester(ActionEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/AddSemester.fxml"));
+            Parent editSemester = fxmlLoader.load();
+            AddSemesterController semesterController = fxmlLoader.getController();
+            semesterController.School.setText(semester.getId().substring(semester.getId().indexOf("_")+1));
+            semesterController.Semester.setText(semester.getId().substring(0,semester.getId().indexOf("_")));
+            for (int i = 0; i < semesters.size(); i++) {
+                if (semesters.get(i).getId().equals(semester.getId())) {
+                    semesterController.position = i;
+                }
+            }
+            Scene scene1 = new Scene(editSemester, 500, 200);
+            Stage addSubjectStage = new Stage();
+            addSubjectStage.setTitle("Edit Semester");
+            addSubjectStage.setResizable(false);
+            addSubjectStage.setScene(scene1);
+            semesterController.initialize(parentController);
+            addSubjectStage.show();
+            labelSemester.getScene().getWindow().hide();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteSemester(ActionEvent event) {
@@ -96,9 +117,6 @@ public class OpenSemesterController extends Controller implements Initializable 
     }
 
     void showSubject(final Subject subject, String method) {
-        if (method.equals("add")) {
-            subjects.add(subject);
-        }
         gridPaneSubject.getChildren().clear();
         counter = 0;
         for (int i = 0; i < subjects.size(); i++) {
