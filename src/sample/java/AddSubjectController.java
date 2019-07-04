@@ -20,7 +20,7 @@ public class AddSubjectController {
     private Boolean canSave = true;
     private List<Subject> subjects;
 
-    private List<Grade> GradeList;
+    private List<Grade> grades;
 
     void initialize(OpenSemesterController parentController) {
         this.parentController = parentController;
@@ -42,11 +42,11 @@ public class AddSubjectController {
                 }
             }
             if(canSave && position == -1){
-                GradeList = new ArrayList<>();
+                grades = new ArrayList<>();
                 Subject newSubject = new Subject();
                 newSubject.setName(Subject.getText());
                 newSubject.setAverage(0);
-                newSubject.setGrades(GradeList);
+                newSubject.setGrades(grades);
                 subjects.add(newSubject);
                 parentController.showSubject(newSubject, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
@@ -58,11 +58,11 @@ public class AddSubjectController {
         }
         else {
             if (!Subject.getText().isEmpty()) {
-                GradeList = new ArrayList<>();
+                grades = new ArrayList<>();
                 Subject newSubject = new Subject();
                 newSubject.setName(Subject.getText());
                 newSubject.setAverage(0);
-                newSubject.setGrades(GradeList);
+                newSubject.setGrades(grades);
                 subjects.add(newSubject);
                 parentController.showSubject(newSubject, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
