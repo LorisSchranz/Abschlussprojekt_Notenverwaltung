@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AbschlussProjekt.iml" filepath="$PROJECT_DIR$/AbschlussProjekt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Abschlussprojekt_Notenverwaltung.iml" filepath="$PROJECT_DIR$/Abschlussprojekt_Notenverwaltung.iml" />
     </modules>
   </component>
 </project>

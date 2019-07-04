@@ -1,5 +1,9 @@
 package sample.java;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +19,7 @@ import javafx.stage.Stage;
 import sample.java.model.Semester;
 import sample.java.model.Subject;
 
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +41,29 @@ public class Controller implements Initializable {
         return semesters;
     }
 
+    public ObjectMapper mapper = new ObjectMapper();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            InputStream inputStream = new FileInputStream(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"));
+            TypeReference<List<Semester>> typeReference = new TypeReference<List<Semester>>() {};
+            semesters = mapper.readValue(inputStream,typeReference);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         gridPaneSemester.setPadding(new Insets(25));
         gridPaneSemester.setHgap(25);
         gridPaneSemester.setVgap(25);
+        showSemester(null,"null");
     }
 
     // Add semester
@@ -72,8 +93,12 @@ public class Controller implements Initializable {
             String Text = semesters.get(i).getId().substring(0, semesters.get(i).getId().indexOf("_")) + ". " + semesters.get(i).getId().substring(semesters.get(i).getId().indexOf("_") + 1) + " Semester";
             Double average = calculateAverageSemester(semesters.get(i));
             semesters.get(i).setAverage(average);
+            try {
+                mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), semesters);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             button.setText(Text + "\n" + "Average: " + average);
-
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
