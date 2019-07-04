@@ -7,11 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import sample.java.model.Grade;
 
+import java.util.List;
+
 public class AddGradeController {
     public TextField tfTitle;
     public TextField tfMark;
     public javafx.scene.control.Spinner Spinner;
     private OpenSubjectController parentController;
+    public int position = -1;
 
     public Button Save;
     private Boolean canSave = true;
@@ -19,20 +22,30 @@ public class AddGradeController {
     private Double finalMark;
     private Double finalWeight;
 
+    private List<Grade> grades;
+
     void initialize(OpenSubjectController parentController) {
         this.parentController = parentController;
+        this.grades = parentController.getGrades();
     }
 
     public void confirmAddSubject(ActionEvent event) {
         if (!parentController.getGrades().isEmpty()) {
             canSave = true;
             checkInputs();
-            if (canSave) {
+            if (canSave && position == -1) {
                 Grade newGrade = new Grade();
                 newGrade.setTitle(tfTitle.getText());
                 newGrade.setMark(Double.valueOf(tfMark.getText().trim()));
-                newGrade.setWeight(Double.valueOf(Spinner.getValue().toString().trim()));
-                parentController.showGrades(newGrade);
+                newGrade.setWeight(Double.valueOf(Spinner.getEditor().getText().trim()));
+                grades.add(newGrade);
+                parentController.showGrades(newGrade, "add");
+                ((Node) (event.getSource())).getScene().getWindow().hide();
+            } else if (canSave && position != -1) {
+                grades.get(position).setTitle(tfTitle.getText());
+                grades.get(position).setMark(Double.valueOf(tfMark.getText().trim()));
+                grades.get(position).setWeight(Double.valueOf(Spinner.getEditor().getText().trim()));
+                parentController.showGrades(null, "edit");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         } else {
@@ -43,7 +56,8 @@ public class AddGradeController {
                 newGrade.setTitle(tfTitle.getText());
                 newGrade.setMark(Double.valueOf(tfMark.getText().trim()));
                 newGrade.setWeight(Double.valueOf(Spinner.getEditor().getText().trim()));
-                parentController.showGrades(newGrade);
+                grades.add(newGrade);
+                parentController.showGrades(newGrade, "add");
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
@@ -97,7 +111,7 @@ public class AddGradeController {
         }
 
         try {
-           finalWeight = Double.parseDouble(Spinner.getEditor().getText().trim());
+            finalWeight = Double.parseDouble(Spinner.getEditor().getText().trim());
         } catch (Exception e) {
             canSave = false;
             finalWeight = 1.00;
