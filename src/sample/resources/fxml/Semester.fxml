@@ -20,11 +20,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#deleteSemester" styleClass="menuItem" text="Delete Semester" />
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="Subject">
-              <items>
-                  <MenuItem mnemonicParsing="false" onAction="#newSubject" styleClass="menuItem" text="Add Subject" />
-              </items>
-            </Menu>
+                <Menu mnemonicParsing="false" text="Subject">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#newSubject" styleClass="menuItem" text="Add Subject" />
+                    </items>
+                </Menu>
                 <Menu mnemonicParsing="false" text="About">
                     <items>
                         <MenuItem mnemonicParsing="false" text="About" />
@@ -47,5 +47,6 @@
                 </GridPane>
             </content></ScrollPane>
         <Label fx:id="labelSemester" layoutX="47.0" layoutY="42.0" prefHeight="17.0" prefWidth="506.0" text="Semester" />
+        <Label fx:id="labelAverage" layoutX="47.0" layoutY="345.0" prefHeight="17.0" prefWidth="506.0" text="Average:" />
     </children>
 </AnchorPane>
