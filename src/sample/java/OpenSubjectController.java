@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import sample.java.model.Grade;
 import sample.java.model.Subject;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -82,14 +84,17 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
     }
 
     void showGrades(final Grade grade, String method) {
+        try {
+            parentController.mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), parentController.semesters);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         gridPaneGrade.getChildren().clear();
         counter = 0;
         for (int i = 0; i < grades.size(); i++) {
             int index = i;
             Button button = new Button();
             button.setText(grades.get(index).getTitle());
-            labelAverage.setText(Double.toString(parentController.calculateAverageSubject(this.subject)));
-            parentController.showSubject(null, "refresh");
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -116,6 +121,8 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
             }
             counter++;
         }
+        labelAverage.setText(Double.toString(parentController.calculateAverageSubject(this.subject)));
+        parentController.showSubject(null, "refresh");
     }
 
     public void editSubject(ActionEvent event) {
@@ -124,6 +131,7 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
             Parent editSubject = fxmlLoader.load();
             AddSubjectController subjectController = fxmlLoader.getController();
             subjectController.Subject.setText(subject.getName());
+            subjectController.EditString = subject.getName();
             for (int i = 0; i < subjects.size(); i++) {
                 if (subjects.get(i).getName().equals(subject.getName())) {
                     subjectController.position = i;

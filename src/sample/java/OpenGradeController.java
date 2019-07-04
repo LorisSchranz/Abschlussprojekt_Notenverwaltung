@@ -38,6 +38,7 @@ public class OpenGradeController extends OpenSubjectController{
             gradeController.tfTitle.setText(grade.getTitle());
             gradeController.tfMark.setText(Double.toString(grade.getMark()));
             gradeController.Spinner.getEditor().setText(Double.toString(grade.getWeight()));
+            gradeController.EditString = grade.getTitle();
             for (int i = 0; i < grades.size(); i++) {
                 if (grades.get(i).getTitle().equals(grade.getTitle())) {
                     gradeController.position = i;

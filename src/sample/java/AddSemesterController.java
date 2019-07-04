@@ -7,12 +7,15 @@ import javafx.scene.control.TextField;
 import sample.java.model.Semester;
 import sample.java.model.Subject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddSemesterController{
     public TextField Semester;
     public TextField School;
+    public String EditString;
     public int position = -1;
 
     private boolean canSave = true;
@@ -34,7 +37,7 @@ public class AddSemesterController{
         if (!parentController.getSemester().isEmpty()) {
             canSave = true;
             for (Semester semester : parentController.getSemester()) {
-                if (semester.getId().equals(ID)) {
+                if (semester.getId().equals(ID) && !ID.equals(EditString)) {
                     canSave = false;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -45,33 +48,42 @@ public class AddSemesterController{
                 }
             }
             if (canSave && position == -1) {
-                Semester newSemester = new Semester();
-                newSemester.setId(ID);
-                newSemester.setAverage(0);
-                newSemester.setSubjects(SubjectList);
-                semesters.add(newSemester);
-                parentController.showSemester(newSemester, "add");
+                Save();
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             } else if(canSave && position != -1){
-                semesters.get(position).setId(ID);
-                parentController.showSemester(null, "edit");
+                Edit();
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         } else {
             if (!Semester.getText().trim().isEmpty() && !School.getText().trim().isEmpty()) {
-                Semester newSemester = new Semester();
-                newSemester.setId(ID);
-                newSemester.setAverage(0);
-                newSemester.setSubjects(SubjectList);
-                semesters.add(newSemester);
-                parentController.showSemester(newSemester, "add");
+               Save();
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
     }
 
-    public void discard(ActionEvent event) {
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+    private void Save(){
+        Semester newSemester = new Semester();
+        newSemester.setId(ID);
+        newSemester.setAverage(0);
+        newSemester.setSubjects(SubjectList);
+        semesters.add(newSemester);
+        try {
+            parentController.mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), semesters);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        parentController.showSemester(newSemester, "add");
+    }
+
+    private void Edit(){
+        semesters.get(position).setId(ID);
+        try {
+            parentController.mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), semesters);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        parentController.showSemester(null, "edit");
     }
 
 }

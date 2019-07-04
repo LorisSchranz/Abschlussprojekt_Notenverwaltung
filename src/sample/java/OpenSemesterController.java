@@ -17,6 +17,8 @@ import sample.java.model.Grade;
 import sample.java.model.Semester;
 import sample.java.model.Subject;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -72,6 +74,7 @@ public class OpenSemesterController extends Controller implements Initializable 
             AddSemesterController semesterController = fxmlLoader.getController();
             semesterController.School.setText(semester.getId().substring(semester.getId().indexOf("_")+1));
             semesterController.Semester.setText(semester.getId().substring(0,semester.getId().indexOf("_")));
+            semesterController.EditString = semester.getId();
             for (int i = 0; i < semesters.size(); i++) {
                 if (semesters.get(i).getId().equals(semester.getId())) {
                     semesterController.position = i;
@@ -128,8 +131,11 @@ public class OpenSemesterController extends Controller implements Initializable 
             Button button = new Button();
             button.setText(subjects.get(index).getName() + "\n" + "Average: " + average);
             subjects.get(i).setAverage(average);
-            labelAverage.setText(Double.toString(calculateAverageSubject(subjects.get(0))));
-            parentController.showSemester(null, "refresh");
+            try {
+                parentController.mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), parentController.semesters);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -157,6 +163,8 @@ public class OpenSemesterController extends Controller implements Initializable 
             }
             counter++;
         }
+        labelAverage.setText(Double.toString(parentController.calculateAverageSemester(this.semester)));
+        parentController.showSemester(null, "refresh");
     }
 
     public Double calculateAverageSubject(Subject subject) {
@@ -170,6 +178,8 @@ public class OpenSemesterController extends Controller implements Initializable 
         }
         if(average != 0) {
             average = average / countGrades;
+        } else{
+            average = 0;
         }
         return average;
     }

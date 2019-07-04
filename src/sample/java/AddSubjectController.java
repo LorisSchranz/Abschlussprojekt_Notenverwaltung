@@ -14,6 +14,7 @@ import java.util.List;
 public class AddSubjectController {
     private OpenSemesterController parentController;
     public TextField Subject;
+    public String EditString;
     public int position = -1;
 
     public Button Save;
@@ -31,7 +32,7 @@ public class AddSubjectController {
         if (!parentController.getSubject().isEmpty()) {
             canSave = true;
             for (Subject subject : parentController.getSubject()) {
-                if (subject.getName().equals(Subject.getText().trim())) {
+                if (subject.getName().equals(Subject.getText().trim()) && !Subject.getText().trim().equals(EditString)) {
                     canSave = false;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -42,13 +43,7 @@ public class AddSubjectController {
                 }
             }
             if(canSave && position == -1){
-                grades = new ArrayList<>();
-                Subject newSubject = new Subject();
-                newSubject.setName(Subject.getText());
-                newSubject.setAverage(0);
-                newSubject.setGrades(grades);
-                subjects.add(newSubject);
-                parentController.showSubject(newSubject, "add");
+                Save();
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             } else if(canSave && position != -1){
                 subjects.get(position).setName(Subject.getText());
@@ -58,19 +53,19 @@ public class AddSubjectController {
         }
         else {
             if (!Subject.getText().isEmpty()) {
-                grades = new ArrayList<>();
-                Subject newSubject = new Subject();
-                newSubject.setName(Subject.getText());
-                newSubject.setAverage(0);
-                newSubject.setGrades(grades);
-                subjects.add(newSubject);
-                parentController.showSubject(newSubject, "add");
+               Save();
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
     }
 
-    public void discard(ActionEvent event) {
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+    private void Save(){
+        grades = new ArrayList<>();
+        Subject newSubject = new Subject();
+        newSubject.setName(Subject.getText());
+        newSubject.setAverage(0);
+        newSubject.setGrades(grades);
+        subjects.add(newSubject);
+        parentController.showSubject(newSubject, "add");
     }
 }
