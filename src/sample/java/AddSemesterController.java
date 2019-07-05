@@ -1,6 +1,7 @@
 package sample.java;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -15,6 +16,7 @@ import java.util.List;
 public class AddSemesterController{
     public TextField Semester;
     public TextField School;
+
     public String EditString;
     public int position = -1;
 
@@ -56,12 +58,13 @@ public class AddSemesterController{
             }
         } else {
             if (!Semester.getText().trim().isEmpty() && !School.getText().trim().isEmpty()) {
-               Save();
+                Save();
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }
     }
 
+    @FXML
     private void Save(){
         Semester newSemester = new Semester();
         newSemester.setId(ID);
@@ -69,7 +72,9 @@ public class AddSemesterController{
         newSemester.setSubjects(SubjectList);
         semesters.add(newSemester);
         try {
-            parentController.mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), semesters);
+
+            File filepath = new File(".").getCanonicalFile();
+            parentController.mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), semesters);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +84,8 @@ public class AddSemesterController{
     private void Edit(){
         semesters.get(position).setId(ID);
         try {
-            parentController.mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), semesters);
+            File filepath = new File(".").getCanonicalFile();
+            parentController.mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), semesters);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,6 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/sample.fxml"));
         primaryStage.setTitle("NotenVerwaltung");
         primaryStage.setScene(new Scene(root, 600, 400));
+        root.getStylesheets().add((getClass().getResource("../resources/style/Style.css")).toExternalForm());
         primaryStage.show();
     }
 
