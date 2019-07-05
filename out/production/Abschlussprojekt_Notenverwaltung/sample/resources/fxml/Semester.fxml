@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchoPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.OpenSemesterController">
+    <children>
+        <MenuBar id="menu" prefHeight="30.0" prefWidth="600.0" styleClass="menuBar" stylesheets="@../style/Style.css">
+            <menus>
+                <Menu mnemonicParsing="false" text="Semester">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#editSemester" styleClass="menuItem" text="Edit Semester" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteSemester" styleClass="menuItem" text="Delete Semester" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Subject">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#newSubject" styleClass="menuItem" text="Add Subject" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="About">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ScrollPane fx:id="scrollPane" layoutX="47.0" layoutY="66.0" prefHeight="269.0" prefWidth="506.0" stylesheets="@../style/Style.css">
+            <content>
+                <GridPane id="scrollpane" fx:id="gridPaneSubject" prefHeight="273.0" prefWidth="489.0" stylesheets="@../style/Style.css">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="251.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="282.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="153.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+            </content></ScrollPane>
+        <Label id="labels" fx:id="labelSemester" layoutX="47.0" layoutY="42.0" prefHeight="17.0" prefWidth="506.0" stylesheets="@../style/Style.css" text="Semester" />
+        <Label id="labels" fx:id="labelAverage" layoutX="47.0" layoutY="345.0" prefHeight="17.0" prefWidth="506.0" stylesheets="@../style/Style.css" text="Average:" />
+    </children>
+</AnchorPane>
