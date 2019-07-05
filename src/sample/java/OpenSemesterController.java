@@ -181,8 +181,6 @@ public class OpenSemesterController extends Controller implements Initializable 
         }
         if(average != 0) {
             average = average / countGrades;
-        } else{
-            average = 0;
         }
         return average;
     }
