@@ -19,7 +19,7 @@ public class AddSubjectController {
 
     public Button Save;
     private Boolean canSave = true;
-    private List<Subject> subjects;
+    private List<sample.java.model.Subject> subjects;
 
     private List<Grade> grades;
 
@@ -53,7 +53,7 @@ public class AddSubjectController {
         }
         else {
             if (!Subject.getText().isEmpty()) {
-               Save();
+                Save();
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             }
         }

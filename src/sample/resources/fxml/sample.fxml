@@ -11,23 +11,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.Controller">
     <children>
-        <MenuBar prefHeight="29.0" prefWidth="600.0" styleClass="menuBar">
+        <MenuBar id="menu" prefHeight="29.0" prefWidth="600.0" styleClass="menuBar" stylesheets="@../style/Style.css">
             <menus>
-                <Menu mnemonicParsing="false" text="Semester">
+                <Menu id="menutxt" mnemonicParsing="false" text="Semester">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#newSemester" styleClass="menuItem" text="Add Semester" />
+                        <MenuItem id="menuitem" mnemonicParsing="false" onAction="#newSemester" text="Add Semester" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu id="menutxt" mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem id="menuItem" mnemonicParsing="false" text="About" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
         <ScrollPane fx:id="scrollPane" layoutX="47.0" layoutY="66.0" prefHeight="269.0" prefWidth="506.0">
             <content>
-                <GridPane fx:id="gridPaneSemester" prefHeight="271.0" prefWidth="533.0">
+                <GridPane id="scrollpane" fx:id="gridPaneSemester" prefHeight="271.0" prefWidth="533.0" stylesheets="@../style/Style.css">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

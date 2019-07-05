@@ -11,12 +11,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.OpenGradeController">
     <children>
-        <MenuBar prefHeight="29.0" prefWidth="600.0" styleClass="menuBar">
+        <MenuBar id="menus" prefHeight="29.0" prefWidth="600.0" styleClass="menuBar" stylesheets="@../style/Style.css">
             <menus>
                 <Menu mnemonicParsing="false" text="Grade">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#editGrade" styleClass="menuItem" text="Edit Grade" />
-                  <MenuItem mnemonicParsing="false" onAction="#deleteGrade" styleClass="menuItem" text="Delete Grade" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteGrade" styleClass="menuItem" text="Delete Grade" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="About">
@@ -26,13 +26,13 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <Label fx:id="labelGrade" layoutX="47.0" layoutY="42.0" prefHeight="17.0" prefWidth="506.0" text="Grade" />
-      <Label layoutX="47.0" layoutY="74.0" prefHeight="17.0" prefWidth="50.0" text="Title" />
-      <Separator layoutY="59.0" prefHeight="8.0" prefWidth="600.0" />
-      <Label layoutX="47.0" layoutY="114.0" prefHeight="17.0" prefWidth="50.0" text="Mark" />
-      <Label layoutX="47.0" layoutY="154.0" prefHeight="17.0" prefWidth="50.0" text="Weight" />
-      <TextField fx:id="textFieldTitle" editable="false" layoutX="97.0" layoutY="69.0" />
-      <TextField fx:id="textFieldMark" editable="false" layoutX="97.0" layoutY="109.0" />
-      <Spinner fx:id="Spinner" amountToStepBy="0.00" layoutX="97.0" layoutY="150.0" prefHeight="25.0" prefWidth="149.0" />
+        <Label id="labels" fx:id="labelGrade" layoutX="47.0" layoutY="42.0" prefHeight="17.0" prefWidth="506.0" stylesheets="@../style/Style.css" text="Grade" />
+        <Label id="labels" layoutX="47.0" layoutY="74.0" prefHeight="17.0" prefWidth="50.0" stylesheets="@../style/Style.css" text="Title" />
+        <Separator layoutY="59.0" prefHeight="8.0" prefWidth="600.0" />
+        <Label id="labels" layoutX="47.0" layoutY="114.0" prefHeight="17.0" prefWidth="50.0" stylesheets="@../style/Style.css" text="Mark" />
+        <Label id="labels" layoutX="47.0" layoutY="154.0" prefHeight="17.0" prefWidth="50.0" stylesheets="@../style/Style.css" text="Weight" />
+        <TextField fx:id="textFieldTitle" editable="false" layoutX="97.0" layoutY="69.0" />
+        <TextField fx:id="textFieldMark" editable="false" layoutX="97.0" layoutY="109.0" />
+        <Spinner fx:id="Spinner" amountToStepBy="0.00" layoutX="97.0" layoutY="150.0" prefHeight="25.0" prefWidth="149.0" />
     </children>
 </AnchorPane>

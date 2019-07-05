@@ -71,7 +71,7 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/AddGrade.fxml"));
             Parent newSubject = fxmlLoader.load();
             AddGradeController addGradeController = fxmlLoader.getController();
-            Scene scene1 = new Scene(newSubject, 500, 400);
+            Scene scene1 = new Scene(newSubject, 600, 400);
             Stage addSubjectStage = new Stage();
             addSubjectStage.setTitle("New Subject");
             addSubjectStage.setResizable(false);
@@ -85,7 +85,9 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
 
     void showGrades(final Grade grade, String method) {
         try {
-            parentController.mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), parentController.semesters);
+
+            File filepath = new File(".").getCanonicalFile();
+            parentController.mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), parentController.semesters);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,7 +105,7 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
                         Parent addGrade = fxmlLoader.load();
                         OpenGradeController openGradeController = fxmlLoader.getController();
                         openGradeController.initialize(OpenSubjectController.this, grades.get(index));
-                        Scene subjectOverviewScene = new Scene(addGrade, 800, 600);
+                        Scene subjectOverviewScene = new Scene(addGrade, 600, 400);
                         Stage subjectOverviewStage = new Stage();
                         subjectOverviewStage.setTitle(grades.get(index).getTitle());
                         subjectOverviewStage.setResizable(true);

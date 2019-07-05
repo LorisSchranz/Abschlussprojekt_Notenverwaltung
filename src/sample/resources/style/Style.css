@@ -1,0 +1,45 @@
+.button{
+    -fx-background-color: linear-gradient(#dbbf86, #dfffb0);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+    -fx-max-width: 200px;
+    -fx-max-height: 700px;
+
+}
+.button:hover {
+    -fx-background-color: linear-gradient(#b8a172, #b2cc8d);
+    -fx-scale-y: 1.05;
+}
+#scrollpane{
+    -fx-background-color: #dbdbd5;
+}
+.AnchorPane{
+    -fx-background-color: #c6ccc9;
+}
+#gridpane{
+
+    -fx-background-color: #c6ccc9;
+}
+#menus{
+
+    -fx-background-color: #505152;
+}
+#labels{
+    -fx-text-fill: black;
+}
+.menu-bar, .menu-item{
+    -fx-background-color: #505152;
+}
+.menuItem{
+    -fx-text-fill: black;
+}
+.menu:hover{
+    -fx-background-color: #747678;
+}
+.menu-item:hover{
+    -fx-background-color: #747678;
+}
+.label{
+    -fx-text-fill: white;
+}

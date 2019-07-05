@@ -46,7 +46,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            InputStream inputStream = new FileInputStream(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"));
+            File filepath = new File(".").getCanonicalFile();
+            InputStream inputStream = new FileInputStream(new File(filepath + "\\src\\sample\\java\\file\\data.json"));
             TypeReference<List<Semester>> typeReference = new TypeReference<List<Semester>>() {};
             semesters = mapper.readValue(inputStream,typeReference);
         } catch (FileNotFoundException e) {
@@ -72,7 +73,7 @@ public class Controller implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../resources/fxml/AddSemester.fxml"));
             Parent newSemester = fxmlLoader.load();
             AddSemesterController semesterController = fxmlLoader.getController();
-            Scene scene1 = new Scene(newSemester, 500, 200);
+            Scene scene1 = new Scene(newSemester, 600, 400);
             Stage addSubjectStage = new Stage();
             addSubjectStage.setTitle("New Semester");
             addSubjectStage.setResizable(false);
@@ -94,7 +95,8 @@ public class Controller implements Initializable {
             Double average = calculateAverageSemester(semesters.get(i));
             semesters.get(i).setAverage(average);
             try {
-                mapper.writeValue(new File("D:\\workspace\\Notentool\\Abschlussprojekt_Notenverwaltung\\src\\sample\\java\\file\\data.json"), semesters);
+                File filepath = new File(".").getCanonicalFile();
+                mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), semesters);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -108,7 +110,7 @@ public class Controller implements Initializable {
                         OpenSemesterController openSemesterController = fxmlLoader.getController();
                         openSemesterController.initialize(Controller.this, semesters.get(index));
                         openSemesterController.labelAverage.setText(Double.toString(calculateAverageSemester(semesters.get(index))));
-                        Scene subjectOverviewScene = new Scene(addSemester, 800, 600);
+                        Scene subjectOverviewScene = new Scene(addSemester, 600, 400);
                         Stage subjectOverviewStage = new Stage();
                         subjectOverviewStage.setTitle(Text);
                         subjectOverviewStage.setResizable(true);

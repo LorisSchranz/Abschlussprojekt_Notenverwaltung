@@ -9,20 +9,20 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.AddGradeController">
+<GridPane id="gridpane" alignment="center" hgap="10" stylesheets="@../style/Style.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.AddGradeController">
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints />
     </rowConstraints>
-    <AnchorPane prefHeight="400.0" prefWidth="500.0">
+    <AnchorPane id="gridpane" prefHeight="400.0" prefWidth="500.0" stylesheets="@../style/Style.css">
         <TextField fx:id="tfTitle" layoutX="68.0" layoutY="32.0" prefHeight="33.0" prefWidth="220.0" promptText="Title" />
-        <Button fx:id="Save" layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#confirmAddSubject" prefHeight="25.0" prefWidth="471.0" text="Save" />
+        <Button fx:id="Save" layoutX="42.0" layoutY="348.0" maxWidth="407.0" mnemonicParsing="false" onAction="#confirmAddSubject" prefHeight="25.0" prefWidth="407.0" text="Save" />
         <TextField fx:id="tfMark" layoutX="68.0" layoutY="81.0" prefHeight="33.0" prefWidth="220.0" promptText="Mark" />
-      <Spinner fx:id="Spinner" amountToStepBy="0.01" editable="true" layoutX="67.0" layoutY="123.0" max="10" min="0"/>
-      <Label layoutX="14.0" layoutY="128.0" prefHeight="17.0" prefWidth="54.0" text="Weight" />
-      <Label layoutX="14.0" layoutY="89.0" prefHeight="17.0" prefWidth="54.0" text="Mark" />
-      <Label layoutX="14.0" layoutY="40.0" prefHeight="17.0" prefWidth="54.0" text="Title" />
+        <Spinner fx:id="Spinner" amountToStepBy="0.01" editable="true" layoutX="67.0" layoutY="123.0" max="10" min="0" />
+        <Label id="labels" layoutX="14.0" layoutY="128.0" prefHeight="17.0" prefWidth="54.0" text="Weight" />
+        <Label id="labels" layoutX="14.0" layoutY="89.0" prefHeight="17.0" prefWidth="54.0" text="Mark" />
+        <Label id="labels" layoutX="14.0" layoutY="40.0" prefHeight="17.0" prefWidth="54.0" stylesheets="@../style/Style.css" text="Title" />
     </AnchorPane>
 </GridPane>
