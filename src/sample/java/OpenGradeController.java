@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import sample.java.model.Grade;
 
 import java.util.List;
+import java.util.Objects;
 
 public class OpenGradeController extends OpenSubjectController{
     public TextField textFieldTitle;
@@ -49,6 +51,7 @@ public class OpenGradeController extends OpenSubjectController{
             addSubjectStage.setTitle("Edit Grade");
             addSubjectStage.setResizable(false);
             addSubjectStage.setScene(scene1);
+            addSubjectStage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sample/resources/image/logo.png"))));
             gradeController.initialize(parentController);
             textFieldTitle.getScene().getWindow().hide();
             addSubjectStage.show();
