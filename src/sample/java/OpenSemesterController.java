@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import sample.java.model.Grade;
@@ -21,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class OpenSemesterController extends Controller implements Initializable {
@@ -86,6 +88,7 @@ public class OpenSemesterController extends Controller implements Initializable 
             addSubjectStage.setTitle("Edit Semester");
             addSubjectStage.setResizable(false);
             addSubjectStage.setScene(scene1);
+            addSubjectStage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sample/resources/image/logo.png"))));
             semesterController.initialize(parentController);
             addSubjectStage.show();
             labelSemester.getScene().getWindow().hide();
@@ -116,6 +119,7 @@ public class OpenSemesterController extends Controller implements Initializable 
             addSubjectStage.setTitle("New Subject");
             addSubjectStage.setResizable(false);
             addSubjectStage.setScene(scene1);
+            addSubjectStage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sample/resources/image/logo.png"))));
             subjectController.initialize(OpenSemesterController.this);
             addSubjectStage.show();
         } catch (Exception e) {
@@ -153,6 +157,7 @@ public class OpenSemesterController extends Controller implements Initializable 
                         subjectOverviewStage.setTitle(subjects.get(index).getName());
                         subjectOverviewStage.setResizable(true);
                         subjectOverviewStage.setScene(subjectOverviewScene);
+                        subjectOverviewStage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sample/resources/image/logo.png"))));
                         subjectOverviewStage.show();
                     } catch (Exception e) {
                         e.printStackTrace();

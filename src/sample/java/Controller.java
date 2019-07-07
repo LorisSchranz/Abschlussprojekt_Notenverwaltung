@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import sample.java.model.Semester;
@@ -23,6 +24,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -78,6 +80,7 @@ public class Controller implements Initializable {
             addSubjectStage.setTitle("New Semester");
             addSubjectStage.setResizable(false);
             addSubjectStage.setScene(scene1);
+            addSubjectStage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sample/resources/image/logo.png"))));
             semesterController.initialize(Controller.this);
             addSubjectStage.show();
         } catch (Exception e) {
@@ -112,6 +115,7 @@ public class Controller implements Initializable {
                         openSemesterController.labelAverage.setText(Double.toString(calculateAverageSemester(semesters.get(index))));
                         Scene subjectOverviewScene = new Scene(addSemester, 600, 400);
                         Stage subjectOverviewStage = new Stage();
+                        subjectOverviewStage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sample/resources/image/logo.png"))));
                         subjectOverviewStage.setTitle(Text);
                         subjectOverviewStage.setResizable(true);
                         subjectOverviewStage.setScene(subjectOverviewScene);
