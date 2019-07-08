@@ -19,11 +19,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#deleteGrade" styleClass="menuItem" text="Delete Grade" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="About">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
             </menus>
         </MenuBar>
         <Label id="labels" fx:id="labelGrade" layoutX="47.0" layoutY="42.0" prefHeight="17.0" prefWidth="506.0" stylesheets="@../style/Style.css" text="Grade" />

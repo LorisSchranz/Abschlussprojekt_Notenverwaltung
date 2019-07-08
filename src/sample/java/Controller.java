@@ -49,7 +49,7 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             File filepath = new File(".").getCanonicalFile();
-            InputStream inputStream = new FileInputStream(new File(filepath + "\\src\\sample\\java\\file\\data.json"));
+            InputStream inputStream = new FileInputStream(new File(filepath + "/src/sample/java/file/data.json"));
             TypeReference<List<Semester>> typeReference = new TypeReference<List<Semester>>() {};
             semesters = mapper.readValue(inputStream,typeReference);
         } catch (FileNotFoundException e) {
@@ -99,7 +99,7 @@ public class Controller implements Initializable {
             semesters.get(i).setAverage(average);
             try {
                 File filepath = new File(".").getCanonicalFile();
-                mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), semesters);
+                mapper.writeValue(new File(filepath + "/src/sample/java/file/data.json"), semesters);
             } catch (IOException e) {
                 e.printStackTrace();
             }
