@@ -139,7 +139,7 @@ public class OpenSemesterController extends Controller implements Initializable 
             subjects.get(i).setAverage(average);
             try {
                 File filepath = new File(".").getCanonicalFile();
-                parentController.mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), parentController.semesters);
+                parentController.mapper.writeValue(new File(filepath + "/src/sample/java/file/data.json"), parentController.semesters);
             } catch (IOException e) {
                 e.printStackTrace();
             }
