@@ -90,7 +90,7 @@ public class OpenSubjectController extends OpenSemesterController implements Ini
         try {
 
             File filepath = new File(".").getCanonicalFile();
-            parentController.mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), parentController.semesters);
+            parentController.mapper.writeValue(new File(filepath + "/src/sample/java/file/data.json"), parentController.semesters);
         } catch (IOException e) {
             e.printStackTrace();
         }
