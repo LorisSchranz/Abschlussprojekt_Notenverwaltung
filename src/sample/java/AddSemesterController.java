@@ -74,7 +74,7 @@ public class AddSemesterController{
         try {
 
             File filepath = new File(".").getCanonicalFile();
-            parentController.mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), semesters);
+            parentController.mapper.writeValue(new File(filepath + "/src/sample/java/file/data.json"), semesters);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class AddSemesterController{
         semesters.get(position).setId(ID);
         try {
             File filepath = new File(".").getCanonicalFile();
-            parentController.mapper.writeValue(new File(filepath + "\\src\\sample\\java\\file\\data.json"), semesters);
+            parentController.mapper.writeValue(new File(filepath + "/src/sample/java/file/data.json"), semesters);
         } catch (IOException e) {
             e.printStackTrace();
         }
