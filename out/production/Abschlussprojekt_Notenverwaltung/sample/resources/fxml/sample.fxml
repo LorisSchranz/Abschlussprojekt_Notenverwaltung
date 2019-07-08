@@ -18,11 +18,6 @@
                         <MenuItem id="menuitem" mnemonicParsing="false" onAction="#newSemester" text="Add Semester" />
                     </items>
                 </Menu>
-                <Menu id="menutxt" mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem id="menuItem" mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
             </menus>
         </MenuBar>
         <ScrollPane fx:id="scrollPane" layoutX="47.0" layoutY="66.0" prefHeight="269.0" prefWidth="506.0">
